@@ -5,12 +5,14 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "lint": "eslint src/**/*.ts",
-    "prettier": "prettier --config .prettierrc '*.js' --write",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "lint": "eslint .",  
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier --config .prettierrc '*.ts' --write",
     "jasmine": "jasmine",
     "build": "npx tsc",
     "test": "npm run build && npm run jasmine",
-    "start": "node ./build/index.js"
+    "start": "tsc && node ./build/index.js"
   },
   "keywords": [],
   "author": "",
