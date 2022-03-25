@@ -3,8 +3,11 @@ import routes from './routes/index';
 
 
 const app: express.Application = express();
-const port: number = 5000; // Default port
+const port = 5000; // Default port
 
+app.get('/', (req: express.Request, res: express.Response) => {
+  res.redirect('/api');
+});
 
   //route to handle the app routes
   app.use('/api', routes);
