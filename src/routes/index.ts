@@ -9,6 +9,6 @@ routes.get("/", (req: express.Request, res: express.Response): void => {
 /* It's used when we want to resize the image */
 routes.use("/resized", imageProcessing);
 /* To get The original image from the folder */
-routes.use("/", express.static("./images"));
+//routes.use("/", express.static("./images"));
 
 export default routes;
