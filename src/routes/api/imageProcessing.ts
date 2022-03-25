@@ -20,28 +20,24 @@ imageProcessing.get(
     const height: number = parseInt(req.query.height as string);
     const width: number = parseInt(req.query.width as string);
     const originalImagePath = path.resolve(pathOfImage, `${name}.jpg`);
-    /* check if the user enters a valid value for width and height, and enters the name of image or name of non existing image */
+    
+    /* check if the user doesn't enter the image name or enters a name of non existing image */
+    if (!name || !fs.existsSync(originalImagePath)) {
+   /* Return 400 because it's a Bad Request, The User uses incorrect Syntax in the Request */
+    res.status(400).send("Please enter the name of image");
+   return;
+  }
+
+    /* check if the user enters a valid value for width and height */
     if (
-      !name ||
-      (!fs.existsSync(originalImagePath) &&
-        (isNaN(height) || !height || height <= 0) &&
-        (isNaN(width) || !width || width <= 0))
+      (isNaN(height) || !height || height <= 0) &&
+      (isNaN(width) || !width || width <= 0)
     ) {
       /* Return 400 because it's a Bad Request, The User uses incorrect Syntax in the Request */
       res
         .status(400)
-        .send(
-          "Please enter the name of image, height and width greater than 1"
-        );
+        .send("Please enter the height and width of the image greater than 1");
         return;
-    }
-    
-    /* check if the user doesn't enter the image name or enters a name of non existing image */
-    if (!name || !fs.existsSync(originalImagePath)) {
-      console.log(!fs.existsSync(originalImagePath));
-      /* Return 400 because it's a Bad Request, The User uses incorrect Syntax in the Request */
-      res.status(400).send("Please enter the name of image");
-      return;
     }
     
     try {
@@ -54,18 +50,17 @@ imageProcessing.get(
         res.sendFile(image_R);
         return;
       } else {
-        const resizedImage = await resizeImage({source: name, width: width,height: height,
-  target: ""
-});
-        //res.sendFile(resizedImage);
-        try {
-          res.sendFile(path.normalize(resizedImage));
-        } catch (error) {
-          res.status(400).send(error);
-          console.log(resizedImage);
-          console.log(path.normalize(resizedImage));
-
-        }
+        await resizeImage({
+            source: name, width: width, height: height,
+            target: ""
+          })
+          .then(
+            async ()=>{
+            res.sendFile(image_R);})
+          .catch((error) =>{
+              res.status(400).send(error);    
+            });
+      
       }
     } catch (error) {
       console.log(error);
