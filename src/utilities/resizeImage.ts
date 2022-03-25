@@ -1,33 +1,4 @@
-import express from "express";
 import sharp from "sharp";
-
-
-const res = express.response;
-/*
-const resizeImage = async (
-  nameOfImage: string,
-  width: number,
-  height: number
-): Promise<string> => {
-  const absoluteImagePath = path.join(`${pathOfImage}`,`${nameOfImage}.jpg`);
-  const absoluteResizedImagePath = path.join(
-    `${pathOfResizedImage}`,
-    `${nameOfImage}+W${width}xH${height}.jpg`
-  );
-  try {
-    await sharp(absoluteImagePath)
-      .resize(width, height)
-      .jpeg()
-      .toFile(absoluteResizedImagePath);
-
-  } catch (error) {
-    console.log(error);
-    res.send(error);
-  }
-  return absoluteResizedImagePath;
-};
-
-*/
 
 // query segments
 interface Resize_element {
