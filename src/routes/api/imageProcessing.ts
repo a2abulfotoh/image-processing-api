@@ -30,7 +30,7 @@ imageProcessing.get(
 
     /* check if the user enters a valid value for width and height */
     if (
-      (isNaN(height) || !height || height <= 0) &&
+      (isNaN(height) || !height || height <= 0) ||
       (isNaN(width) || !width || width <= 0)
     ) {
       /* Return 400 because it's a Bad Request, The User uses incorrect Syntax in the Request */
