@@ -3,7 +3,7 @@ import routes from './routes/index';
 
 
 const app: express.Application = express();
-const port = 5000; // Default port
+const port = 3000; // Default port
 
 app.get('/', (req: express.Request, res: express.Response) => {
   res.redirect('/api');
